@@ -13,7 +13,7 @@ def generate_key():
 
 
 class Rooms(models.Model):
-    roomid = models.CharField(max_length=6, default=generate_key, unique=True) 
+    roomid = models.CharField(max_length=6, default=generate_key, unique=True, primary_key=True) 
     token = models.CharField(max_length=1000 , unique=True)
     host = models.CharField(max_length=100)
     roomname = models.CharField(max_length=20)

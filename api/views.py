@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import  CreateRoomSerializer , RoomSerializer, UserSerializer 
-from .models import Rooms
+from .models import Rooms , Users
 from rest_framework.views import APIView
 from rest_framework import generics , status
 from rest_framework.response import Response
@@ -23,6 +23,9 @@ class RoomView(generics.ListAPIView):
     queryset = Rooms.objects.all() 
     serializer_class = RoomSerializer
 
+class UserView(generics.ListAPIView):
+    queryset = Users.objects.all()
+    serializer_class = UserSerializer
 
 class RoomCreate(APIView):
     serializer_class = CreateRoomSerializer
@@ -36,8 +39,13 @@ class RoomCreate(APIView):
             host =  request.session.session_key
             todos = serializer.data.get('todos')
             token = generate_token(roomname, roomname)
+            username = serializer.data.get('username')
             room = Rooms(todos=todos, token=token, roomname=roomname ,host=host)
             room.save()
+            user = Users(username=username, skey=host, room=room)
+            user.save()
             return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

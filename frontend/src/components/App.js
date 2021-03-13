@@ -50,6 +50,9 @@ const App = () => {
             <Route path="/join">
 					<JoinRoom  setRoom={setRoom}/>
             </Route>
+				  <Route path="/video">
+						  <VideoChat />
+            </Route>
             <Route path="/create">
               <CreateRoom setRoom={setRoom} />
             </Route>

@@ -16,5 +16,9 @@ class RoomSerializer(serializers.ModelSerializer):
 class CreateRoomSerializer(serializers.Serializer):
     roomname = serializers.CharField(max_length=20)
     todos = serializers.CharField(max_length=1000, allow_blank=True)
-    username = serializers.CharField(max_length=50)
+    username = serializers.CharField(max_length=50) 
 
+
+class JoinRoomSerializer(serializers.Serializer):
+    roomid = serializers.CharField(max_length=6)
+    username = serializers.CharField(max_length=50)
